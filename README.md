@@ -1,8 +1,43 @@
 # 🏠 ha-termux-tools
 
-> Bash scripts to manage Home Assistant from Android via Termux.
+> Bash scripts to work with Home Assistant configuration files from Android using Termux.
 
-Two lightweight utilities for Home Assistant users who administer their instance from an Android phone via [Termux](https://termux.dev).
+This toolkit maintains a **local mirror of your Home Assistant configuration** on your Android device.
+It allows you to quickly search, inspect, and edit configuration files directly from Termux using fast command-line tools.
+
+---
+
+## Why this exists
+
+Searching a large Home Assistant configuration directly on a phone is inconvenient.
+
+This toolkit solves that by:
+
+1. Extracting your HA configuration from a backup to a **local mirror**
+2. Allowing fast contextual searches using **ripgrep**
+3. Making configuration files easy to browse and edit on your phone
+
+No connection to the running HA instance is required.
+
+---
+
+## Workflow
+
+```
+Home Assistant
+      │
+      │  export backup
+      ▼
+backup.tar  (Download/)
+      │
+      │  ha_restore.sh
+      ▼
+/storage/emulated/0/HA/data/
+      │
+      │  ha_find_contexte.sh
+      ▼
+search results
+```
 
 ---
 
@@ -15,10 +50,12 @@ Search any keyword across all HA configuration files (`yaml`, `json`, `jinja2`, 
 **How it works:**
 - Opens an Android dialog to enter the search term
 - Runs a recursive search with [ripgrep](https://github.com/BurntSushi/ripgrep)
-- Generates a formatted `.txt` file with matches (`>>>`) and ±5 lines of context
+- Generates a formatted `.txt` report
+- Displays matching lines (`>>>`) with ±5 lines of context
 - Opens the result file automatically
 
 **Example output:**
+
 ```
 ============================================================
 Recherche Home Assistant — AVEC CONTEXTE (Termux)
@@ -45,20 +82,23 @@ Fichier : /storage/emulated/0/HA/data/automations.yaml
 
 Extracts a Home Assistant backup `.tar` from your `Download/` folder and places the configuration files at `/storage/emulated/0/HA/data/` on your device.
 
-> ⚠️ This script does **not** interact with a running Home Assistant instance. It creates a local copy of your config on the phone — typically used as a prerequisite for `ha_find_contexte`.
+This creates a **local mirror of your HA configuration** on the phone.
+
+> ⚠️ This script does **not** interact with a running Home Assistant instance.
+> It only extracts configuration files from a backup archive.
 
 **How it works:**
 - Detects the most recent `.tar` backup in `/storage/emulated/0/Download/`
-- Validates the file is a genuine HA backup (checks for `homeassistant` inside)
+- Validates the file is a genuine HA backup
 - Extracts both archive levels (tar-in-tar)
-- Asks for **explicit confirmation** before touching any existing local data
-- Renames the old `data/` to `data__before_restore__<timestamp>` instead of deleting it
+- Requests **explicit confirmation** before replacing local files
+- Renames the previous `data/` folder instead of deleting it
 - Cleans up temporary files
 
-**Safety:**
-- ✅ Cancellable at every step via dialog
-- ✅ Previous local `data/` is kept, not deleted — easy to roll back
-- ✅ Validates the extracted folder is non-empty before proceeding
+**Safety features:**
+- ✅ Fully cancellable via Android dialog
+- ✅ Previous local `data/` folder preserved with timestamp
+- ✅ Validation that extracted data exists and is non-empty
 
 ---
 
@@ -72,18 +112,21 @@ Extracts a Home Assistant backup `.tar` from your `Download/` folder and places 
 | `ripgrep` | `pkg install ripgrep` |
 | `jq` | `pkg install jq` |
 
-> ⚠️ Install Termux from **F-Droid**, not the Play Store (outdated version).
+> ⚠️ Install Termux from **F-Droid**, not the Play Store (the Play Store version is outdated).
 
 ---
 
 ## 🚀 Installation
 
-> ⚠️ `ha_restore.sh` replaces `HA/data` on your device. A timestamped backup of the previous folder is kept, but only run this script if you understand what it does.
+> ⚠️ `ha_restore.sh` replaces the folder `HA/data` on your device.
+> A timestamped backup of the previous folder is kept, but run this script only if you understand its purpose.
 
 ```bash
-# Clone the repo
+# Clone the repository
 git clone https://github.com/YOUR_USERNAME/ha-termux-tools.git
 cd ha-termux-tools
+
+# Make scripts executable
 chmod +x *.sh
 
 # Optional: add to PATH
@@ -100,21 +143,21 @@ cp *.sh ~/bin/
 ├── Download/
 │   └── *.tar              ← HA backups exported from the HA UI
 └── HA/
-    ├── data/              ← local copy of HA configuration (set by ha_restore)
-    └── results/           ← search output files (written by ha_find_contexte)
+    ├── data/              ← local mirror of HA configuration
+    └── results/           ← search output files
 ```
 
 ---
 
 ## 🔧 Configuration
 
-Paths are defined at the top of each script and can be changed to match your setup:
+Paths are defined at the top of each script and can be adjusted to match your setup:
 
 ```bash
 # ha_find_contexte.sh
 ROOT_DIR="/storage/emulated/0/HA/data"
 OUT_DIR="/storage/emulated/0/HA/results"
-CONTEXT_LINES=5   # lines of context shown around each match
+CONTEXT_LINES=5
 
 # ha_restore.sh
 DOWNLOADS="/storage/emulated/0/Download"
@@ -125,7 +168,9 @@ HA_ROOT="/storage/emulated/0/HA"
 
 ## 📖 Documentation
 
-- [Installation Guide](docs/INSTALL.md)
+Additional documentation is available in the [`docs/`](docs/) folder:
+
+- [Installation guide](docs/INSTALL.md)
 - [ha_find_contexte — full reference](docs/ha_find_contexte.md)
 - [ha_restore — full reference](docs/ha_restore.md)
 
