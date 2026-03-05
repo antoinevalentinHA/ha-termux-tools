@@ -54,6 +54,8 @@ Results are saved to:
 /storage/emulated/0/HA/results/recherche_contexte_<query>_<timestamp>.txt
 ```
 
+Cancel/empty input exits without changes.
+
 ---
 
 ## Output format
