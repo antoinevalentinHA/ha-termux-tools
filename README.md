@@ -56,7 +56,7 @@ Search any keyword across all HA configuration files (`yaml`, `json`, `jinja2`, 
 
 **Android dialog interface:**
 
-![Search dialog|250x500](https://github.com/user-attachments/assets/eaa2d1e8-a63d-4936-b09d-2fde6080084e)
+<img width="400" height="266" alt="screenshot_dialog" src="https://github.com/user-attachments/assets/c949a573-5d5d-4112-928f-9190ecd1f3da" />
 
 **Example output:**
 
