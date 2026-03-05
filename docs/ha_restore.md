@@ -63,6 +63,7 @@ scripts/ha_restore.sh
 ```
 
 The script automatically picks the most recently modified `.tar` file in `Download/`.
+The script selects the newest file by modification time (ls -t)
 
 ### Step 3 — Confirm the dialog
 
