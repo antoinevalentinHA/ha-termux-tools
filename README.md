@@ -54,6 +54,9 @@ Search any keyword across all HA configuration files (`yaml`, `json`, `jinja2`, 
 - Displays matching lines (`>>>`) with ±5 lines of context
 - Opens the result file automatically
 
+**Android dialog interface:**
+![74955](https://github.com/user-attachments/assets/eaa2d1e8-a63d-4936-b09d-2fde6080084e)
+
 **Example output:**
 
 ```
