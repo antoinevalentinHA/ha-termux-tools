@@ -66,11 +66,7 @@ mkdir -p ~/bin
 cp scripts/*.sh ~/bin/
 ```
 
-Then restart Termux, or run:
-
-```bash
-source ~/.bashrc
-```
+Then restart Termux
 
 ---
 
