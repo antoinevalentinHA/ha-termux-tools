@@ -178,6 +178,9 @@ Additional documentation is available in the [`docs/`](docs/) folder:
 - [ha_find_contexte — full reference](docs/ha_find_contexte.md)
 - [ha_restore — full reference](docs/ha_restore.md)
 
+Run the scripts directly from an Android home screen shortcut:
+[Using Termux:Widget](docs/termux_widget.md)
+
 ---
 
 ## 📄 License
