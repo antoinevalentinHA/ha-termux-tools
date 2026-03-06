@@ -2,8 +2,8 @@
 
 > Bash scripts to work with Home Assistant configuration files from Android using Termux.
 
-This toolkit maintains a **local mirror of your Home Assistant configuration** on your Android device.
-It allows you to quickly search, inspect, and edit configuration files directly from Termux using fast command-line tools.
+This toolkit lets you create a local mirror of your Home Assistant configuration
+so it can be searched and inspected from Android using Termux.
 
 ---
 
@@ -112,6 +112,7 @@ This creates a **local mirror of your HA configuration** on the phone.
 |------|---------|
 | [Termux](https://f-droid.org/packages/com.termux/) | F-Droid (recommended) |
 | [Termux:API](https://f-droid.org/packages/com.termux.api/) | F-Droid |
+| `git` | `pkg install git` |
 | `termux-api` | `pkg install termux-api` |
 | `ripgrep` | `pkg install ripgrep` |
 | `jq` | `pkg install jq` |
@@ -127,15 +128,15 @@ This creates a **local mirror of your HA configuration** on the phone.
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/ha-termux-tools.git
+git clone https://github.com/antoinevalentinHA/ha-termux-tools.git
 cd ha-termux-tools
 
 # Make scripts executable
-chmod +x *.sh
+chmod +x scripts/*.sh
 
 # Optional: add to PATH
 mkdir -p ~/bin
-cp *.sh ~/bin/
+cp scripts/*.sh ~/bin/
 ```
 
 ---
