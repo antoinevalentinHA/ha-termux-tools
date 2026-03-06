@@ -5,7 +5,7 @@ This guide explains how to:
 - install the scripts from the repository
 - run them from Termux
 - create a home screen shortcut using Termux:Widget
-- launch the tool in one tap
+- launch the tool with a single tap
 
 No network access to Home Assistant is required.
 
@@ -40,8 +40,7 @@ Install the following Android apps:
 Open Termux and run:
 
 ```bash
-pkg update
-pkg upgrade
+pkg update && pkg upgrade
 pkg install git ripgrep jq termux-api
 termux-setup-storage
 ```
@@ -112,6 +111,8 @@ ls -l ~/.shortcuts
 3. Select the shortcut script
 
 The script can now be launched with a single tap.
+
+The script runs inside Termux and automatically opens the result file.
 
 ---
 
